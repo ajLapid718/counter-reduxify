@@ -7,13 +7,13 @@ const DECREMENT = "DECREMENT";
 
 // ACTION CREATORS;
 // Action creators are typically called in your React components and are usually involved with event handling;
-const increment = () => {
+export const increment = () => {
     return {
         type: INCREMENT
     }
 }
 
-const decrement = () => {
+export const decrement = () => {
     return {
         type: DECREMENT
     }
