@@ -1,11 +1,27 @@
 // ACTION TYPES;
 const FETCH_STUDENTS = "FETCH_STUDENTS";
+const REMOVE_STUDENT = "REMOVE_STUDENT";
+const ADD_STUDENT = "ADD_STUDENT";
 
 // ACTION CREATOR;
 const fetchStudents = (students) => {
     return {
         type: FETCH_STUDENTS,
         payload: students
+    }
+}
+
+const removeStudent = (id) => {
+    return {
+        type: REMOVE_STUDENT,
+        payload: id
+    }
+}
+
+const addStudent = (student) => {
+    return {
+        type: ADD_STUDENT,
+        payload: student
     }
 }
 
@@ -72,11 +88,25 @@ export const fetchStudentsThunk = () => (dispatch) => {
     dispatch(fetchStudents(arrayOfStudentsFromAPI))
 }
 
+export const removeStudentThunk = (id) => (dispatch) => {
+    let resolvedActionObject = removeStudent(id); 
+    dispatch(resolvedActionObject);
+}
+
+export const addStudentThunk = (student) => (dispatch) => {
+    let resolvedActionObject = addStudent(student); 
+    dispatch(resolvedActionObject);
+}
+
 // REDUCER FUNCTION;
 export default (state = [], action) => {
     switch (action.type) {
         case FETCH_STUDENTS:
             return action.payload;
+        case REMOVE_STUDENT:
+            return state.filter(student => student.id !== action.payload);
+        case ADD_STUDENT:
+            return [...state, action.payload]
         default:
             return state;
     }
