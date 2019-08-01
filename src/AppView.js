@@ -1,7 +1,7 @@
 import React from "react";
 
 const AppView = (props) => {
-    const { counter, incrementCounter, decrementCounter, handleChange, amount } = props;
+    const { counter, incrementCounter, decrementCounter, handleChange, amount, students } = props;
 
     return (
     <div className="App">
@@ -13,6 +13,8 @@ const AppView = (props) => {
             </form>
             <button onClick={() => incrementCounter(Number(amount))}>Plus</button>
             <button onClick={() => decrementCounter(Number(amount))}>Minus</button>
+            
+            {students.map(student => <div><img src={student.imageUrl} width="100" height="100"></img></div>)}
         </header>
     </div>
     )

@@ -7,6 +7,7 @@ import AppView from "./AppView";
 // Additional Redux store imports;
 import { connect } from "react-redux";
 import { increment, decrement } from "./store/utilities/counter";
+import { fetchStudentsThunk } from "./store/utilities/students";
 
 class AppContainer extends Component {
   constructor() {
@@ -16,13 +17,17 @@ class AppContainer extends Component {
     }
   }
 
+  componentDidMount() {
+    this.props.fetchAllStudents();
+  }
+
   handleChange = (event) => {
     this.setState({ [event.target.name]: event.target.value })
   }
 
   render() {
     return (
-      <AppView counter={this.props.counter} incrementCounter={this.props.incrementCounter} decrementCounter={this.props.decrementCounter} handleChange={this.handleChange} amount={this.state.amount} />
+      <AppView counter={this.props.counter} incrementCounter={this.props.incrementCounter} decrementCounter={this.props.decrementCounter} handleChange={this.handleChange} amount={this.state.amount} students={this.props.students} />
     )
   }
 }
@@ -32,7 +37,8 @@ class AppContainer extends Component {
 // The values of these keys reflect the value of the piece of state in your Redux store;
 const mapState = (state) => {
   return {
-    counter: state.counter
+    counter: state.counter,
+    students: state.students
   }
 }
 
@@ -42,7 +48,8 @@ const mapState = (state) => {
 const mapDispatch = (dispatch) => {
   return {
     incrementCounter: (amount) => dispatch(increment(amount)),
-    decrementCounter: (amount) => dispatch(decrement(amount))
+    decrementCounter: (amount) => dispatch(decrement(amount)),
+    fetchAllStudents: () => dispatch(fetchStudentsThunk())
   }
 }
 
